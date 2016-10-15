@@ -40,3 +40,6 @@
 ;;; Rust
 (el-get-bundle rust-mode)
 ;; (add-hook 'rust-mode-hook 'flycheck-mode)
+
+;;; Markdown
+(el-get-bundle markdown-mode)
