@@ -36,3 +36,7 @@
 (el-get-bundle go-autocomplete)
 
 (add-hook 'go-mode-hook 'flycheck-mode)
+
+;;; Rust
+(el-get-bundle rust-mode)
+;; (add-hook 'rust-mode-hook 'flycheck-mode)
