@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Git
+cp ~/.gitconfig ./.gitconfig
 # Emacs
 cp ~/.emacs.d/init.el ./init.el
 # tmux
