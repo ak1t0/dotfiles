@@ -48,7 +48,14 @@
 
 ;;; Rust
 (el-get-bundle rust-mode)
-;; (add-hook 'rust-mode-hook 'flycheck-mode)
+(el-get-bundle flycheck-rust)
+(el-get-bundle racer)
+
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+
+(add-hook 'rust-mode-hook #'flycheck-mode)
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'company-mode)
 
 ;;; Markdown
 (el-get-bundle markdown-mode)
