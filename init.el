@@ -59,3 +59,7 @@
 
 ;;; Markdown
 (el-get-bundle markdown-mode)
+
+;;; Git
+(el-get-bundle magit)
+(global-set-key (kbd "C-x g") 'magit-status)
