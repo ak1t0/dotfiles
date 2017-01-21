@@ -25,8 +25,8 @@
     (eval-print-last-sexp)))
 
 ;;; General
+(el-get-bundle dash)
 (el-get-bundle flycheck)
-;;(el-get-bundle auto-complete)
 (el-get-bundle company-mode)
 
 
@@ -42,7 +42,6 @@
 ;; go get -u github.com/nsf/gocode
 (el-get-bundle go-mode)
 (el-get-bundle go-lint)
-(el-get-bundle go-autocomplete)
 
 (add-hook 'go-mode-hook 'flycheck-mode)
 
