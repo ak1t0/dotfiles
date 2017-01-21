@@ -41,8 +41,15 @@
 ;; go get -u github.com/nsf/gocode
 (el-get-bundle go-mode)
 (el-get-bundle go-lint)
+(el-get-bundle company-go)
 
-(add-hook 'go-mode-hook 'flycheck-mode)
+(add-to-list 'exec-path (expand-file-name "~/go/bin"))
+
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (set (make-local-variable 'company-backends) '(company-go))
+	    (company-mode)))
+(add-hook 'go-mode-hook #'flycheck-mode)
 
 ;;; Rust
 (el-get-bundle rust-mode)
