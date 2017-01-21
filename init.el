@@ -29,11 +29,10 @@
 (el-get-bundle flycheck)
 (el-get-bundle company-mode)
 
-
 (ffap-bindings)
 (show-paren-mode 1)
 (setq frame-title-format
-      (format "%%f - Emacs"))
+      (format "%%f"))
 (setq require-final-newline t)
 
 ;;; Go
