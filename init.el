@@ -1,6 +1,7 @@
 ;;;; 基本設定
 
 ;; ウィンドウの初期設定 
+(setq package--init-file-ensured t)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-message t)
 (tool-bar-mode 0)
