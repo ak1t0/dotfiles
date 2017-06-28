@@ -66,3 +66,8 @@
 ;;; Markdown
 (el-get-bundle markdown-mode)
 
+;;; Ruby
+(el-get-bundle ruby-mode)
+(el-get-bundle ruby-electric)
+
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
