@@ -13,6 +13,9 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
+;; キーバインドの設定
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+
 ;;;; El-Getの設定
 
 ;; EmacsのPATHに$PATH/el-get/el-getを追加 
