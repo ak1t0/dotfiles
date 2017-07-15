@@ -13,9 +13,6 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-;; キーバインドの設定
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
-
 ;;;; El-Getの設定
 
 ;; EmacsのPATHに$PATH/el-get/el-getを追加 
@@ -38,6 +35,9 @@
 (setq frame-title-format
       (format "%%f"))
 (setq require-final-newline t)
+
+;; key-binding
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 
 ;;; Go
 ;; go get -u github.com/rogpeppe/godef
