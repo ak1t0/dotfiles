@@ -39,6 +39,9 @@
 ;; key-binding
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 
+;; for Custom warning
+(load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
+
 ;;; Go
 ;; go get -u github.com/rogpeppe/godef
 ;; go get -u github.com/golang/lint/
