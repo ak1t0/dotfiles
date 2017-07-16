@@ -3,5 +3,8 @@
 	email = aktoo3097@gmail.com
 [alias]
 	st = status
+	unstage = reset HEAD -q
+	untrack = rm -r --cached
+	uncommit = reset --mixed HEAD~
 [ghq]
 	root = /home/ak1t0/Works/ghq
