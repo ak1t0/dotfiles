@@ -56,7 +56,12 @@
 	  (lambda ()
 	    (set (make-local-variable 'company-backends) '(company-go))
 	    (company-mode)))
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-.") 'godef-jump)
+	    (local-set-key (kbd "C-,") 'pop-tag-mark)))
 (add-hook 'go-mode-hook #'flycheck-mode)
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;;; Rust
 (el-get-bundle rust-mode)
@@ -77,3 +82,4 @@
 (el-get-bundle ruby-electric)
 
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+
