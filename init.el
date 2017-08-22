@@ -35,6 +35,7 @@
 (setq frame-title-format
       (format "%%f"))
 (setq require-final-newline t)
+(set-language-environment "UTF-8")
 
 ;; key-binding
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
