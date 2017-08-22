@@ -84,3 +84,11 @@
 
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 
+;;; Docker
+(el-get-bundle dockerfile-mode)
+
+;;; Clojure
+(el-get-bundle clojure-mode)
+(el-get-bundle cider)
+
+(add-hook 'cider-mode-hook #'company-mode)
