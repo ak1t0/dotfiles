@@ -43,6 +43,28 @@
 ;; for Custom warning
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
+;;; Helm
+(el-get-bundle helm)
+;; change key
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+
+(setq helm-split-window-in-side-p           t
+      helm-move-to-line-cycle-in-source     t
+      helm-ff-search-library-in-sexp        t
+      helm-scroll-amount                    8
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t
+      helm-autoresize-mode t)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+(helm-mode 1)
+
 ;;; Go
 ;; go get -u github.com/rogpeppe/godef
 ;; go get -u github.com/golang/lint/
