@@ -72,6 +72,7 @@
 (el-get-bundle go-mode)
 (el-get-bundle go-lint)
 (el-get-bundle company-go)
+(el-get-bundle flycheck-gometalinter)
 
 (add-to-list 'exec-path (expand-file-name "~/go/bin"))
 
@@ -83,7 +84,12 @@
 	  (lambda ()
 	    (local-set-key (kbd "C-.") 'godef-jump)
 	    (local-set-key (kbd "C-,") 'pop-tag-mark)))
-(add-hook 'go-mode-hook #'flycheck-mode)
+
+(flycheck-gometalinter-setup)
+(setq flycheck-gometalinter-fast t)
+(setq flycheck-gometalinter-test t)
+
+(add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 ;;; Rust
