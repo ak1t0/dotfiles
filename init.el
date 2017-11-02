@@ -1,24 +1,22 @@
-;;;; 基本設定
+;;;; Basic Settings
 
-;; ウィンドウの初期設定 
+;; Window Settings
 (setq package--init-file-ensured t)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-message t)
-(tool-bar-mode 0)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
-;; テーマを設定
-(load-theme 'misterioso t)
-
-;; 読み込んだ設定ファイルのディレクトリを変数に設定
+;; set config file directory to var
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-;;;; El-Getの設定
+;;;; El-Get
 
-;; EmacsのPATHに$PATH/el-get/el-getを追加 
+;; add $PATH/el-get/el-get to PATH
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
 
-;; El-Getが存在しないときインストールする
+;; El-Get install
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
@@ -26,91 +24,95 @@
     (eval-print-last-sexp)))
 
 ;;; General
+(el-get-bundle use-package)
 (el-get-bundle dash)
 (el-get-bundle flycheck)
-(el-get-bundle company-mode)
+(el-get-bundle auto-complete)
+(el-get-bundle company)
 
 (ffap-bindings)
 (show-paren-mode 1)
-(setq frame-title-format
-      (format "%%f"))
 (setq require-final-newline t)
 (set-language-environment "UTF-8")
-
-;; key-binding
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(bind-key* "C-h" 'delete-backward-char)
 
 ;; for Custom warning
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
 ;;; Helm
 (el-get-bundle helm)
-;; change key
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h o") 'helm-occur)
 
-(setq helm-split-window-in-side-p           t
-      helm-move-to-line-cycle-in-source     t
-      helm-ff-search-library-in-sexp        t
-      helm-scroll-amount                    8
-      helm-ff-file-name-history-use-recentf t
-      helm-echo-input-in-header-line t
-      helm-autoresize-mode t)
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t)
-(helm-mode 1)
+(use-package helm
+  :init
+  (setq helm-split-window-in-side-p t)
+  (setq helm-move-to-line-cycle-in-source t)
+  (setq helm-ff-search-library-in-sexp t)
+  (setq helm-scroll-amount 8)
+  (setq helm-ff-file-name-history-use-recentf t)
+  (setq helm-echo-input-in-header-line t)
+  (setq helm-autoresize-mode t)
+  (setq helm-buffers-fuzzy-matching t)
+  (setq helm-recentf-fuzzy-match t)
+  :bind
+  (("C-c h" . helm-command-prefix)
+   ("M-x" . helm-M-x)
+   ("C-x C-f" . helm-find-files)
+   ("C-x b" .  helm-mini)
+   ("C-c o" . helm-occur))
+  :config
+  (helm-mode 1))
 
 ;;; Go
+
 ;; go get -u github.com/rogpeppe/godef
 ;; go get -u github.com/golang/lint/
 ;; go get -u github.com/nsf/gocode
+
 (el-get-bundle go-mode)
 (el-get-bundle go-lint)
-(el-get-bundle company-go)
+(el-get-bundle go-eldoc)
+(el-get-bundle go-autocomplete)
 (el-get-bundle flycheck-gometalinter)
 
-(add-to-list 'exec-path (expand-file-name "~/go/bin"))
+(use-package go-mode
+  :init
+  (add-to-list 'exec-path (expand-file-name "~/go/bin"))
+  :config
+  (bind-keys :map go-mode-map
+         ("C-." . godef-jump)
+         ("C-," . pop-tag-mark))
+  (add-hook 'go-mode-hook 'flycheck-mode)
+  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
-(add-hook 'go-mode-hook
-	  (lambda ()
-	    (set (make-local-variable 'company-backends) '(company-go))
-	    (company-mode)))
-(add-hook 'go-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-.") 'godef-jump)
-	    (local-set-key (kbd "C-,") 'pop-tag-mark)))
-
-(flycheck-gometalinter-setup)
-(setq flycheck-gometalinter-fast t)
-(setq flycheck-gometalinter-test t)
-
-(add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'before-save-hook 'gofmt-before-save)
+(use-package flycheck-gometalinter
+  :init
+  (setq flycheck-gometalinter-fast t)
+  (setq flycheck-gometalinter-test t)
+  :config
+  (flycheck-gometalinter-setup))
 
 ;;; Rust
 (el-get-bundle rust-mode)
 (el-get-bundle flycheck-rust)
 (el-get-bundle racer)
 
-(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+(use-package rust-mode
+  :init
+  (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+  :config
+  (add-hook 'rust-mode-hook #'flycheck-mode)
+  (add-hook 'rust-mode-hook #'racer-mode))
 
-(add-hook 'rust-mode-hook #'flycheck-mode)
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'company-mode)
+(use-package racer
+  :config
+  (add-hook 'racer-mode-hook #'company-mode))
 
 ;;; Markdown
 (el-get-bundle markdown-mode)
 
 ;;; Ruby
 (el-get-bundle ruby-mode)
-(el-get-bundle ruby-electric)
-
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 
 ;;; Docker
 (el-get-bundle dockerfile-mode)
@@ -119,4 +121,6 @@
 (el-get-bundle clojure-mode)
 (el-get-bundle cider)
 
-(add-hook 'cider-mode-hook #'company-mode)
+(use-package cider
+  :config
+  (add-hook 'cider-mode-hook #'company-mode))
