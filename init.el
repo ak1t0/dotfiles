@@ -102,10 +102,7 @@
   (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
   :config
   (add-hook 'rust-mode-hook #'flycheck-mode)
-  (add-hook 'rust-mode-hook #'racer-mode))
-
-(use-package racer
-  :config
+  (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'company-mode))
 
 ;;; Markdown
