@@ -38,6 +38,20 @@
 (set-language-environment "UTF-8")
 (bind-key* "C-h" 'delete-backward-char)
 
+(setq alpha-flag nil)
+(defun alpha-toggle ()
+  (interactive)
+  (if (equal alpha-flag t)
+      (progn
+	(set-frame-parameter nil 'alpha 100)
+	(setq alpha-flag nil)
+	(message "alpha off"))
+      (progn
+	(set-frame-parameter nil 'alpha 70)
+	(setq alpha-flag t)
+	(message "alpha on"))))
+(bind-key* "C-x t" 'alpha-toggle)
+
 ;; for Custom warning
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
