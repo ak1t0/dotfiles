@@ -7,6 +7,8 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
+(load-theme 'misterioso t)
+
 ;; set config file directory to var
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
