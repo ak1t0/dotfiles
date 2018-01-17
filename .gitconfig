@@ -7,4 +7,4 @@
 	untrack = rm -r --cached
 	uncommit = reset --mixed HEAD~
 [ghq]
-	root = /home/ak1t0/Works/ghq
+	root = /home/ak1t0/go/src
