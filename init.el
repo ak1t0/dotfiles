@@ -137,3 +137,13 @@
 (use-package cider
   :config
   (add-hook 'cider-mode-hook #'company-mode))
+
+;; Python
+(el-get-bundle jedi)
+
+(use-package jedi
+  :init
+  (setq jedi:complete-on-dot t)
+  :config
+  (add-hook 'python-mode-hook #'jedi:setup)
+  (jedi:install-server))
