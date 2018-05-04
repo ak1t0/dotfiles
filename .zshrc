@@ -4,6 +4,9 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
+alias e="emacs -nw"
+alias s="git status"
+
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
 zplug "zsh-users/zsh-syntax-highlighting"
