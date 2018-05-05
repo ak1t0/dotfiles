@@ -29,6 +29,7 @@
 (el-get-bundle dash)
 (el-get-bundle flycheck)
 (el-get-bundle company-mode)
+(el-get-bundle xclip)
 
 (ffap-bindings)
 (show-paren-mode 1)
@@ -36,6 +37,7 @@
       (format "%%f"))
 (setq require-final-newline t)
 (set-language-environment "UTF-8")
+(turn-on-xclip)
 
 ;; key-binding
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
@@ -82,8 +84,8 @@
 	    (company-mode)))
 (add-hook 'go-mode-hook
 	  (lambda ()
-	    (local-set-key (kbd "C-.") 'godef-jump)
-	    (local-set-key (kbd "C-,") 'pop-tag-mark)))
+	    (local-set-key (kbd "M-.") 'godef-jump)
+	    (local-set-key (kbd "M-,") 'pop-tag-mark)))
 
 (flycheck-gometalinter-setup)
 (setq flycheck-gometalinter-fast t)
