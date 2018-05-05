@@ -38,6 +38,7 @@
 (setq require-final-newline t)
 (set-language-environment "UTF-8")
 (turn-on-xclip)
+(xterm-mouse-mode 1)
 
 ;; key-binding
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
