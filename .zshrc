@@ -6,6 +6,7 @@ HISTFILE=~/.zsh_history
 
 alias e="emacs -nw"
 alias s="git status"
+alias g="hub"
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
