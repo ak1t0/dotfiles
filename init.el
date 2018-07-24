@@ -43,6 +43,7 @@
 ;; key-binding
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 (define-key global-map (kbd "C-x g") 'helm-keyboard-quit)
+(define-key key-translation-map (kbd "C-j") (kbd "C-g"))
 
 ;; for Custom warning
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
