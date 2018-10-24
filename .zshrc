@@ -29,3 +29,5 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+[[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
