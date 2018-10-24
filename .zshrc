@@ -19,6 +19,7 @@ zplug "mafredri/zsh-async", from:github
 zplug "powerline/powerline", use:"powerline/bindings/zsh/powerline.zsh"
 zplug "knu/z", use:z.sh, defer:2
 
+zplug "ak1t0/select-repo", use:select-repo.zsh, as:plugin
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
