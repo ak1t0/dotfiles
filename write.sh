@@ -2,6 +2,7 @@
 
 # Git
 cp ./.gitconfig ~/.gitconfig
+cp ./gitignore ~/.gitignore
 # Emacs
 cp ./init.el  ~/.emacs.d/init.el
 cp ./custom.el  ~/.emacs.d/custom.el

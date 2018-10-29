@@ -2,6 +2,7 @@
 
 # Git
 cp ~/.gitconfig ./.gitconfig
+cp ~/.gitignore ./gitignore
 # Emacs
 cp ~/.emacs.d/init.el ./init.el
 # tmux

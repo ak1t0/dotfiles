@@ -6,5 +6,7 @@
 	unstage = reset HEAD -q
 	untrack = rm -r --cached
 	uncommit = reset --mixed HEAD~
+[core]
+	excludesfile = ~/.gitignore
 [ghq]
 	root = /home/ak1t0/src
