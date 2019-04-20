@@ -26,6 +26,7 @@
 ;;; UI/UX
 ;;;; final newline
 (setq require-final-newline t)
+(setq mode-require-final-newline t)
 ;;;; paren
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
