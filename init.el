@@ -190,3 +190,8 @@
 ;;;; markdown-mode
 (use-package markdown-mode
   :ensure t)
+
+;;; YAML
+;;;; yaml-mode
+(use-package yaml-mode
+    :ensure t)
