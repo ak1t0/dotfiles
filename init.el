@@ -92,8 +92,8 @@
 
 ;;; Golang
 ;;;- go get -u github.com/rogpeppe/godef
-;;;- go get -u github.com/nsf/gocode
-;;;- go get -u github.com/alecthomas/gometalinter
+;;;- go get -u github.com/mdempsky/gocode
+;;;- go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 ;;;; go-mode
 (use-package go-mode
   :ensure t
@@ -103,13 +103,11 @@
   :config
   (define-key go-mode-map (kbd "M-.") 'godef-jump)
   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark))
-;;;; gometalinter
-(use-package flycheck-gometalinter
+;;;; golangci-lint
+(use-package flycheck-golangci-lint
   :ensure t
-  :config
-  (flycheck-gometalinter-setup)
-  (setq flycheck-gometalinter-fast t)
-  (setq flycheck-gometalinter-test t))
+  :hook (go-mode . flycheck-golangci-lint-setup)
+  )
 ;;;; company-go
 (use-package company-go
   :ensure t
