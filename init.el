@@ -192,4 +192,9 @@
 ;;; YAML
 ;;;; yaml-mode
 (use-package yaml-mode
-    :ensure t)
+  :ensure t)
+
+;;; Protocol Buffers
+;;;; protobuf-mode
+(use-package protobuf-mode
+  :ensure t)
