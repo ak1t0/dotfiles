@@ -198,3 +198,8 @@
 ;;;; protobuf-mode
 (use-package protobuf-mode
   :ensure t)
+
+;;; Yara
+;;;; yara-mode
+(use-package yara-mode
+    :ensure t)
