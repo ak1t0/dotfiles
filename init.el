@@ -106,8 +106,7 @@
 ;;;; golangci-lint
 (use-package flycheck-golangci-lint
   :ensure t
-  :hook (go-mode . flycheck-golangci-lint-setup)
-  )
+  :hook (go-mode . flycheck-golangci-lint-setup))
 ;;;; company-go
 (use-package company-go
   :ensure t
