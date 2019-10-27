@@ -8,6 +8,8 @@ alias e="emacs -nw"
 alias s="git status"
 alias g="hub"
 alias gg="ghq get -p"
+alias d="git diff"
+alias dc="git diff --cached"
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
