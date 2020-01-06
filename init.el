@@ -4,7 +4,7 @@
 (package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-	("melpa" . "http://melpa.org/packages/")
+	("melpa" . "https://melpa.org/packages/")
 	("org" . "http://orgmode.org/elpa/")))
 (unless package-archive-contents
     (package-refresh-contents))
@@ -20,13 +20,14 @@
 ;;;; message
 (setq initial-scratch-message nil)
 (setq inhibit-startup-message t)
-;;;; cutom
+;;;; custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;;;; security
+(use-package gnu-elpa-keyring-update :ensure t)
 
 ;;; UI/UX
 ;;;; final newline
 (setq require-final-newline t)
-(setq mode-require-final-newline t)
 ;;;; paren
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
@@ -47,28 +48,6 @@
   :config
   (xclip-mode t)
   (xterm-mouse-mode t))
-;;;; flycheck
-(use-package flycheck
-  :ensure t)
-;;;; company
-(use-package company
-  :ensure t
-  :config
-  (custom-set-faces
-   '(company-preview
-     ((t (:foreground "darkgray" :underline t))))
-   '(company-preview-common
-     ((t (:inherit company-preview))))
-   '(company-tooltip
-     ((t (:background "lightgray" :foreground "black"))))
-   '(company-tooltip-selection
-     ((t (:background "steelblue" :foreground "white"))))
-   '(company-tooltip-common
-     ((((type x)) (:inherit company-tooltip :weight bold))
-      (t (:inherit company-tooltip))))
-   '(company-tooltip-common-selection
-     ((((type x)) (:inherit company-tooltip-selection :weight bold))
-            (t (:inherit company-tooltip-selection))))))
 
 ;;; Helm
 ;;;; helm
@@ -90,38 +69,44 @@
   (setq helm-buffers-fuzzy-matching t
 	helm-recentf-fuzzy-match    t))
 
-;;; Golang
-;;;- go get -u github.com/rogpeppe/godef
-;;;- go get -u github.com/mdempsky/gocode
-;;;- go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+;;; LSP
+;;;; lsp-mode
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook
+  (go-mode . lsp-deferred)
+  :config
+  (global-set-key (kbd "M-,") 'xref-pop-marker-stack)
+  (global-set-key (kbd "M-.") 'xref-find-definitions))
+;;;; company
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-s") 'company-abort)
+  (define-key company-active-map (kbd "C-j") 'company-complete-selection))
+;;;; company-lsp
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
+;;;; lsp-ui
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+;;; Go
+;;;- go get golang.org/x/tools/gopls@latest
 ;;;; go-mode
 (use-package go-mode
   :ensure t
-  :init
-  (add-hook 'go-mode-hook 'flycheck-mode)
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  :commands go-mode
   :config
-  (define-key go-mode-map (kbd "M-.") 'godef-jump)
-  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark))
-;;;; golangci-lint
-(use-package flycheck-golangci-lint
-  :ensure t
-  :hook (go-mode . flycheck-golangci-lint-setup))
-;;;; company-go
-(use-package company-go
-  :ensure t
-  :config
-  (add-hook 'go-mode-hook 'company-mode)
-  (add-hook 'go-mode-hook
-	    (lambda ()
-	      (set (make-local-variable 'company-backends) '(company-go))
-	      (setq company-transformers '(company-sort-by-backend-importance))
-	      (setq company-selection-wrap-around t)
-	      (define-key company-active-map (kbd "C-n") 'company-select-next)
-	      (define-key company-active-map (kbd "C-p") 'company-select-previous)
-	      (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-	      (define-key company-active-map (kbd "C-x") 'company-abort)
-	      (define-key company-active-map (kbd "C-j") 'company-complete-selection))))
+  (add-hook 'go-mode-hook #'lsp)
+  (add-hook 'before-save-hook 'lsp-format-buffer))
 
 ;;; Rust
 ;;;; rust-mode
@@ -134,14 +119,7 @@
   :ensure t
   :config
   (add-hook 'rust-mode-hook 'racer-mode)
-  (add-hook 'rust-mode-hook 'company-mode)
-  (add-hook 'rust-mode-hook
-	    (lambda ()
-	      (define-key company-active-map (kbd "C-n") 'company-select-next)
-	      (define-key company-active-map (kbd "C-p") 'company-select-previous)
-	      (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-	      (define-key company-active-map (kbd "C-x") 'company-abort)
-	      (define-key company-active-map (kbd "C-j") 'company-complete-selection))))
+  (add-hook 'rust-mode-hook 'company-mode))
 ;;;; flycheck-rust
 (use-package flycheck-rust
   :ensure t
@@ -158,24 +136,17 @@
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
 
-;;; Ruby
-;;;; ruby-mode
-(use-package ruby-mode
-  :ensure t)
-;;;; ruby-electric
-(use-package ruby-electric
-  :ensure t
-  :config
-  (add-hook 'ruby-mode-hook
-	    (lambda ()
-	      (ruby-electric-mode t))))
-
 ;;; Clojure
 ;;;; clojure-mode
 (use-package clojure-mode
   :ensure t)
 ;;;; cider
 (use-package cider
+  :ensure t)
+
+;;; Ruby
+;;;; ruby-mode
+(use-package ruby-mode
   :ensure t)
 
 ;;; Docker
@@ -188,17 +159,12 @@
 (use-package markdown-mode
   :ensure t)
 
+;;; Kotlin
+;;;; kotlin-mode
+(use-package kotlin-mode
+  :ensure t)
+
 ;;; YAML
 ;;;; yaml-mode
 (use-package yaml-mode
-  :ensure t)
-
-;;; Protocol Buffers
-;;;; protobuf-mode
-(use-package protobuf-mode
-  :ensure t)
-
-;;; Yara
-;;;; yara-mode
-(use-package yara-mode
     :ensure t)
