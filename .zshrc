@@ -1,36 +1,22 @@
-source ~/.zplug/init.zsh
+### Added by Zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
 
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
+zplugin light "zsh-users/zsh-syntax-highlighting"
+zplugin light "zsh-users/zsh-history-substring-search"
+zplugin light "zsh-users/zsh-autosuggestions"
+zplugin light "zsh-users/zsh-completions"
+zplugin light "chrissicool/zsh-256color"
 
-alias e="emacs -nw"
-alias s="git status"
-alias g="hub"
-alias gg="ghq get -p"
-alias d="git diff"
-alias dc="git diff --cached"
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
 
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-zplug "chrissicool/zsh-256color"
-zplug "mafredri/zsh-async", from:github
-zplug "powerline/powerline", use:"powerline/bindings/zsh/powerline.zsh"
-zplug "knu/z", use:z.sh, defer:2
-
-zplug "ak1t0/select-repo", use:select-repo.zsh, as:plugin
-
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
+zplugin snippet "https://github.com/ak1t0/zsh/blob/master/config.zsh"
 
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/ak1t0/.sdkman"
+[[ -s "/home/ak1t0/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ak1t0/.sdkman/bin/sdkman-init.sh"
