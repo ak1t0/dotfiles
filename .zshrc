@@ -1,19 +1,29 @@
-### Added by Zplugin's installer
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin installer's chunk
+source ~/.zplug/init.zsh
 
-zplugin light "zsh-users/zsh-syntax-highlighting"
-zplugin light "zsh-users/zsh-history-substring-search"
-zplugin light "zsh-users/zsh-autosuggestions"
-zplugin light "zsh-users/zsh-completions"
-zplugin light "chrissicool/zsh-256color"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
 
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
+zplug "chrissicool/zsh-256color"
+zplug "mafredri/zsh-async", from:github, use:"async.zsh"
+zplug "sindresorhus/pure", from:github, use:"pure.zsh", as:theme
 
-zplugin snippet "https://github.com/ak1t0/zsh/blob/master/config.zsh"
+zplug "peco/peco", from:gh-r, as:command
+zplug "x-motemen/ghq", from:gh-r, as:command
+
+zplug "ak1t0/zsh", from:github, use:"config.zsh"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+	echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
 
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
 
