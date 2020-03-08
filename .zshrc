@@ -25,7 +25,7 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load
 
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
 
