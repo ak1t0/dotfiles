@@ -11,24 +11,16 @@ zplug "sindresorhus/pure", from:github, use:"pure.zsh", as:theme
 
 zplug "peco/peco", from:gh-r, as:command
 zplug "x-motemen/ghq", from:gh-r, as:command
+zplug "BurntSushi/ripgrep", from:gh-r, as:command
+zplug "ogham/exa", from:gh-r, as:command
 
 zplug "ak1t0/zsh", from:github, use:"config.zsh"
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
-	echo; zplug install
+        echo; zplug install
     fi
 fi
 
-# Then, source plugins and add commands to $PATH
 zplug load
-
-[[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/ak1t0/.sdkman"
-[[ -s "/home/ak1t0/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ak1t0/.sdkman/bin/sdkman-init.sh"
