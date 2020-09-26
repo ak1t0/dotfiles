@@ -11,10 +11,12 @@ zplug "sindresorhus/pure", from:github, use:"pure.zsh", as:theme
 
 zplug "peco/peco", from:gh-r, as:command
 zplug "x-motemen/ghq", from:gh-r, as:command
-zplug "BurntSushi/ripgrep", from:gh-r, as:command
+zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
 zplug "ogham/exa", from:gh-r, as:command
 
-zplug "ak1t0/zsh", from:github, use:"config.zsh"
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+zplug "~/.zsh", from:local
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
