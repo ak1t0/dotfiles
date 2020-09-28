@@ -1,0 +1,11 @@
+## oneliner
+`wget https://github.com/ak1t0/dotflies/archive/master.zip; unzip master.zip; rm master.zip; cd dotfiles-master; ./mitamae local -j node.json recipe.rb;`
+
+## cookbooks
+- esseantial package
+- dotfiles(zsh/emacs)
+- Go
+- Ruby
+- Rust
+- Haskell
+- Java
