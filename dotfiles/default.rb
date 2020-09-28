@@ -16,12 +16,12 @@ end
 
 remote_file "/home/#{node[:user]}/.zshrc" do
   owner node[:user]
-  source ".zshrc"
+  source "zsh/.zshrc"
 end
 
 remote_directory "/home/#{node[:user]}/.zsh" do
   owner node[:user]
-  source "zsh"
+  source "zsh/local"
 end
 
 execute "set zsh" do
