@@ -9,6 +9,6 @@ cp ~/.emacs.d/emacs/*.el ./emacs/emacs
 # tmux
 cp ~/.tmux.conf ./tmux/.tmux.conf
 # zsh
-cp ~/.zshrc ./.zshrc
+cp ~/.zshrc ./zsh/.zshrc
 
 echo "dotfiles are pulled"
