@@ -16,7 +16,7 @@ zplug "ogham/exa", from:gh-r, as:command
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-zplug "~/.zsh", from:local
+zplug "~/.zsh", from:local, use:"*.zsh"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
