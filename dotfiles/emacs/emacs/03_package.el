@@ -8,12 +8,14 @@
   (xterm-mouse-mode t))
 ;;;; flycheck
 (use-package flycheck
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;;; LSP
 ;;;; lsp-mode
 (use-package lsp-mode
   :ensure t
+  :defer t
   :commands (lsp lsp-deferred)
   :hook
   (go-mode . lsp-deferred)
@@ -23,6 +25,7 @@
 ;;;; company
 (use-package company
   :ensure t
+  :defer t
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
@@ -33,4 +36,5 @@
 ;;;; lsp-ui
 (use-package lsp-ui
   :ensure t
+  :defer t
   :commands lsp-ui-mode)

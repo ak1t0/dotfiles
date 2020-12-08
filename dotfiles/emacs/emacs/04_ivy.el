@@ -12,11 +12,13 @@
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x b") 'counsel-buffer-or-recentf))
 
-
 ;;;; swiper
 (use-package swiper
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;;;; counsel
 (use-package counsel
-  :ensure t)
+  :ensure t
+  :defer t)
+

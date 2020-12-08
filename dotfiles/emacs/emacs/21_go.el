@@ -4,6 +4,7 @@
 (use-package go-mode
   :ensure t
   :commands go-mode
+  :defer t
   :config
   (add-hook 'go-mode-hook #'lsp)
   (add-hook 'before-save-hook #'lsp-format-buffer)
