@@ -14,6 +14,7 @@ zplug "x-motemen/ghq", from:gh-r, as:command
 zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:"rg"
 zplug "ogham/exa", from:gh-r, as:command
 zplug "docker/compose", from:gh-r, as:command, rename-to:"docker-compose", use:"*Linux-x86_64*"
+zplug "cli/cli", from:gh-r, as:command, rename-to:"gh", use:"*linux_amd64*tar*"
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
