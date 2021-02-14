@@ -12,7 +12,8 @@
   ;; binding
   (global-set-key "\C-s" 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x b") 'counsel-buffer-or-recentf))
+  (global-set-key (kbd "C-x b") 'counsel-buffer-or-recentf)
+  (define-key ivy-minibuffer-map (kbd "C-q") 'minibuffer-keyboard-quit))
 
 ;;;; swiper
 (use-package swiper
@@ -23,4 +24,3 @@
 (use-package counsel
   :ensure t
   :defer t)
-
