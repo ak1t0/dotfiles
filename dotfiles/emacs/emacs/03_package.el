@@ -19,6 +19,7 @@
   :commands (lsp lsp-deferred)
   :hook
   (go-mode . lsp-deferred)
+  (rust-mode . lsp-deferred)
   :config
   (global-set-key (kbd "M-,") 'xref-pop-marker-stack)
   (global-set-key (kbd "M-.") 'xref-find-definitions))
